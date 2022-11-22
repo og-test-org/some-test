@@ -1,8 +1,7 @@
 name: some test
 
 on:
-  release:
-    types: [edited]
+  push:
 
 jobs:
   get-version:
