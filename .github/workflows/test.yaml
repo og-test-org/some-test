@@ -31,6 +31,9 @@ jobs:
       with:
         token: ${{ github.token }}
         branch: main
+        team-reviewers: |
+            owners
+            maintainers
         title: '[Example] Update report'
         body: |
           Update report
