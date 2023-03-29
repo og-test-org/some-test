@@ -21,29 +21,10 @@ jobs:
         git commit --allow-empty -m "testing actions"
         git pull origin main --rebase
         git push --set-upstream origin release-test-${{github.run_id}}
-        # gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
-        # gh pr merge --auto --squash
-        git checkout main
+        gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
+        gh pr merge --auto --squash
       env:
-        GH_TOKEN: ${{ github.token }}
-    - name: Run the Action
-      uses: devops-infra/action-pull-request@v0.5.5
-      with:
-        github_token: ${{ github.token }}
-        source_branch: release-test-${{github.run_id}}
-        target_branch: main
-        title: My pull request
-        # template: .github/PULL_REQUEST_TEMPLATE.md
-        body: "**Automated pull request**"
-        reviewer: octocat
-        assignee: octocat
-        label: deployment
-        draft: false
-        old_string: "<!-- Add your description here -->"
-        new_string: "** Automatic pull request**"
-        get_diff: true
-        ignore_users: "dependabot"
-        allow_no_diff: true
+        GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
     - name: Check PR
       uses: JJ/github-pr-contains-action@releases/v10
       with:
