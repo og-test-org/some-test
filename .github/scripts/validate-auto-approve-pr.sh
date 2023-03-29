@@ -8,7 +8,7 @@ if [ $NUMBER_OF_FILE_CHANGES -gt 1 ]; then
 fi
 
 echo "Reviewing PR version update"
-TARGET_REVISION=$(gh pr diff $BRANCH  --color never |
+TARGET_REVISION=$(gh pr diff "$BRANCH"  --color never |
 grep targetRevision |
 tail -n1 |
 cut -c 2- |
