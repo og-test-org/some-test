@@ -25,14 +25,3 @@ jobs:
         # gh pr merge --auto --squash
       env:
         GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
-    - name: Check PR
-      uses: JJ/github-pr-contains-action@releases/v10
-      with:
-        github-token: ${{github.token}}
-        bodyDoesNotContain: "Delete|this"
-        bodyContains: 'Test'
-        diffContains: ';'
-        diffDoesNotContain: "TODO|to do"
-        filesChanged: 1
-        linesChanged: 1
-
