@@ -12,4 +12,4 @@ jobs:
       shell: bash
       env:
         BRANCH: ${GITHUB_REF##*/}
-        GITHUB_TOKEN: ${GITHUBTOKEN}
+        GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
