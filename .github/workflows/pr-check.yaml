@@ -3,14 +3,14 @@ on:
   pull_request:
 
 jobs:
-  check_pr:
+ check_pr:
     runs-on: ubuntu-latest
     steps:
     - name: Check PR
-      uses: jsoares/gh-pr-content-checker@master
+      uses: JJ/github-pr-contains-action@releases/v10
       with:
         github-token: ${{github.token}}
-        bodyContains: 'Automerge: Enabled.'     
+        bodyContains: 'Automerge: Enabled.'
         diffContains: '/targetRevision: (0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
-        maxLinesChanged: 1
-        maxFilesChanged: 1
+        filesChanged: 1
+        linesChanged: 1
