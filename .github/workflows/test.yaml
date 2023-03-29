@@ -23,6 +23,7 @@ jobs:
         git push --set-upstream origin release-test-${{github.run_id}}
         # gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
         # gh pr merge --auto --squash
+        git checkout main
       env:
         GH_TOKEN: ${{ github.token }}
     - name: Create Pull Request
@@ -30,7 +31,7 @@ jobs:
       uses: peter-evans/create-pull-request@v4
       with:
         token: ${{ github.token }}
-        branch: main
+        branch: release-test-${{github.run_id}}
         team-reviewers: |
             owners
             maintainers
