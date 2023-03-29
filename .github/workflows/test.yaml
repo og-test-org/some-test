@@ -18,7 +18,7 @@ jobs:
         git checkout -b release-test-${{github.run_id}}
         git commit --allow-empty -m "testing actions"
         git pull origin main --rebase
-        git push
+        git push --set-upstream origin release-test-${{github.run_id}}
         gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
         gh pr merge --auto --squash 
     - name: Check PR
