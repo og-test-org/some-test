@@ -16,7 +16,7 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git status
         git checkout -b release-test-${{github.run_id}}
-        mkdir test-${{github.run_id}}.txt
+        touch test-${{github.run_id}}.txt
         git add .
         git commit --allow-empty -m "testing actions"
         git pull origin main --rebase
