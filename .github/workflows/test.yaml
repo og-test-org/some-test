@@ -25,13 +25,14 @@ jobs:
         GH_TOKEN: ${{ github.token }}
     - name: Create Pull Request
       id: cpr
-      uses: peter-evans/create-pull-request@v4.2.4
+      uses: peter-evans/create-pull-request@v4
       with:
         token: ${{ github.token }}
         commit-message: Update report
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         signoff: false
+        base: main
         branch: release-test-${{github.run_id}}
         delete-branch: true
         title: '[Example] Update report'
