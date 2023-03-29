@@ -20,7 +20,9 @@ jobs:
         git pull origin main --rebase
         git push --set-upstream origin release-test-${{github.run_id}}
         gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
-        gh pr merge --auto --squash 
+        gh pr merge --auto --squash
+      env:
+        GH_TOKEN: ${{ github.token }}
     - name: Check PR
       uses: JJ/github-pr-contains-action@releases/v10
       with:
