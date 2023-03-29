@@ -26,19 +26,25 @@ jobs:
         git checkout main
       env:
         GH_TOKEN: ${{ github.token }}
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@v4
+    - name: Run the Action
+      uses: devops-infra/action-pull-request@v0.5.5
       with:
-        token: ${{ github.token }}
-        branch: release-test-${{github.run_id}}
-        team-reviewers: |
-            owners
-            maintainers
-        title: '[Example] Update report'
-        body: |
-          Update report
-          - 🚦 Automerge: Enabled. 
+        github_token: ${{ github.token }}
+        source_branch: release-test-${{github.run_id}}
+        target_branch: master
+        title: My pull request
+        # template: .github/PULL_REQUEST_TEMPLATE.md
+        body: "**Automated pull request**"
+        reviewer: octocat
+        assignee: octocat
+        label: enhancement
+        milestone: My milestone
+        draft: false
+        old_string: "<!-- Add your description here -->"
+        new_string: "** Automatic pull request**"
+        get_diff: true
+        ignore_users: "dependabot"
+        allow_no_diff: true
     - name: Check PR
       uses: JJ/github-pr-contains-action@releases/v10
       with:
