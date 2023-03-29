@@ -7,6 +7,7 @@ if [ $NUMBER_OF_FILE_CHANGES -gt 1 ]; then
   echo "More than one file change please review manually" && exit 1
 fi
 
+echo "Reviewing PR version update"
 gh pr diff $BRANCH  --color never |
 grep targetRevision |
 tail -n1 |
