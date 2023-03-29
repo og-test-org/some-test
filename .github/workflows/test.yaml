@@ -7,8 +7,26 @@ jobs:
   get-version:
     runs-on: ubuntu-latest
     steps:
-      - name: do nothing
-        shell: bash
-        run: |
-         echo "${{ github.event_name }}"
-         echo "${{ github.event.action }}"
+    - name: checkout root
+      uses: actions/checkout@v3
+    - name: Commit and Push
+      shell: bash
+      run: |
+        git status
+        git checkout -b release-test-${{github.run_id}}
+        git commit --allow-empty -m "testing actions"
+        git pull origin master --rebase
+        git push
+        gh pr create --title "Release" --body "🚦 Automerge: Enabled. " --fill
+        gh pr merge --auto --squash 
+    - name: Check PR
+      uses: JJ/github-pr-contains-action@releases/v10
+      with:
+        github-token: ${{github.token}}
+        bodyDoesNotContain: "Delete|this"
+        bodyContains: 'Test'
+        diffContains: ';'
+        diffDoesNotContain: "TODO|to do"
+        filesChanged: 1
+        linesChanged: 1
+
