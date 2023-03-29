@@ -14,3 +14,11 @@ jobs:
         diffContains: '/targetRevision: (0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
         filesChanged: 1
         linesChanged: 1
+    - name: Check PR
+      uses: jsoares/gh-pr-content-checker@master
+      with:
+        github-token: ${{github.token}}
+        bodyContains: 'Automerge: Enabled.'     
+        diffContains: '/targetRevision: (0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$'
+        maxLinesChanged: 1
+        maxFilesChanged: 1
