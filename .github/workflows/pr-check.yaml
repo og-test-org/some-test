@@ -11,5 +11,5 @@ jobs:
     - run: ./.github/scripts/validate-auto-approve-pr.sh
       shell: bash
       env:
-        BRANCH: ${GITHUB_REF##*/}
+        BRANCH: ${GITHUB_HEAD_REF}
         GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
