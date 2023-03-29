@@ -16,8 +16,7 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git status
         git checkout -b release-test-${{github.run_id}}
-        echo targetRevision: 0.0.1 >> test-${{github.run_id}}.txt
-        echo targetRevision: 0.0.s >> test-${{github.run_id}}-2.txt
+        sed -i "s/targetRevision:.*$/targetRevision: ${{github.run_id}}" test.txt
         git add .
         git commit --allow-empty -m "testing actions"
         git pull origin main --rebase
