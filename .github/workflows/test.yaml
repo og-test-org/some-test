@@ -37,8 +37,7 @@ jobs:
         body: "**Automated pull request**"
         reviewer: octocat
         assignee: octocat
-        label: enhancement
-        milestone: My milestone
+        label: deployment
         draft: false
         old_string: "<!-- Add your description here -->"
         new_string: "** Automatic pull request**"
