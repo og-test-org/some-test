@@ -6,6 +6,8 @@ jobs:
  check_pr:
     runs-on: ubuntu-latest
     steps:
+    - name: checkout root
+      uses: actions/checkout@v3
     - run: ./.github/scripts/validate-auto-approve-pr.sh
       shell: bash
       env:
