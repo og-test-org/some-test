@@ -10,8 +10,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: verify
         run: |
-          gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
-          
+          gh api --method GET /repos/:owner/:repo/commits/${{ github.head_ref }} | jq '.commit.verification.verified'
+
+   
+    
           echo "new command"
           gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq -r '.user.login'
           export PULL_REQUEST_CREATOR=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq -r '.user.login')
