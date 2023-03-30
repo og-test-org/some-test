@@ -71,4 +71,5 @@ jobs:
           
           echo "done"
         env:
+          GITHUB_TOKEN: ${{ github.token }}
           PULL_NUMBER: ${{ github.event.number }}
