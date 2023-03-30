@@ -31,4 +31,6 @@ jobs:
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
       - name: verify
-        run: git log --no-decorate --show-signature -n 1
+        run: | 
+          git rev-parse --abbrev-ref HEAD
+          git log --no-decorate --show-signature -n 1
