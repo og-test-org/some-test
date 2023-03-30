@@ -30,6 +30,7 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
+          git pull
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
 #  verify:
 #    needs: [create-branch]
