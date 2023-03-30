@@ -10,6 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: verify
         run: |
+          git pull
           gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
           
           echo "new command"
