@@ -31,4 +31,5 @@ jobs:
       - name: Verify
         uses: vchain-us/verify-action@master
         with:
+          signerID: github.com
           org: og-james
