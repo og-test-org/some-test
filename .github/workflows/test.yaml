@@ -12,8 +12,8 @@ jobs:
       - name: Commit changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILE_TO_COMMIT: data.csv
-          DESTINATION_BRANCH: data
+          FILE_TO_COMMIT: test.txt
+          DESTINATION_BRANCH: main
         run: |
           export TODAY=$( date -u '+%Y-%m-%d' )
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
