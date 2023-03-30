@@ -14,7 +14,7 @@ jobs:
           FILE_TO_COMMIT: test.txt
           DESTINATION_BRANCH: release-${{ github.run_id }}
         run: |
-          git config --global user.email ""github-actions[bot]"@noreply.com"
+          git config --global user.email "github-actions[bot]@noreply.com"
           git config --global user.name "github-actions[bot]"
           git checkout -b $DESTINATION_BRANCH
           git pull origin main --rebase
@@ -30,16 +30,16 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
-
-  verify:
-    needs: [create-branch]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: verify
-        run: gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
+#  verify:
+#    needs: [create-branch]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - name: verify
+#        run: gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #  verify:
 #    needs: [create-branch]

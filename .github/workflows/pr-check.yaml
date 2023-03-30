@@ -1,0 +1,19 @@
+name: Test workflow for example 01
+
+on:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: verify
+        run: |
+          gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
+          
+          echo "new command"
+          gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /repos/OWNER/REPO/pulls/PULL_NUMBER | jq '.user'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_NUMBER: ${{ github.event.number }}
