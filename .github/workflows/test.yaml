@@ -44,7 +44,8 @@ jobs:
           git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }}
           export COMMIT_LOG=$(git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }})
           export SUB="failed to parse signature"
-          if [[ "$STR" == *"$SUB"* ]]; then
+          export SUBTWO="Can't check signature"
+          if [[ "$COMMIT_LOG" == *"$SUB"* || "$COMMIT_LOG" == *"$SUBTWO"* ]]; then
             echo "Failed to validate signature"
             exit 1
           fi
