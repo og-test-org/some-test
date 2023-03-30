@@ -16,9 +16,9 @@ jobs:
         run: |
           git config --global user.email ""github-actions[bot]"@noreply.com"
           git config --global user.name "github-actions[bot]"
-          git checkout -b release-${{ github.run_id }}
+          git checkout -b $DESTINATION_BRANCH
           git pull origin main --rebase
-          git push --set-upstream origin release-${{ github.run_id }}
+          git push --set-upstream origin $DESTINATION_BRANCH
           export TODAY=$( date -u '+%Y-%m-%d' )
           echo "$TODAY ${{ github.run_id }}" > test.txt
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
@@ -33,7 +33,7 @@ jobs:
       - name: verify
         run: | 
           git rev-parse --abbrev-ref HEAD
-          git log --no-decorate --show-signature -n 1
+          git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }}
           export RETURN_VALUE="$?"
           echo "$RETURN_VALUE"
           if [ "$RETURN_VALUE" -ne 0 ]; then
