@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  import:
+  create-branch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -17,9 +17,18 @@ jobs:
           git config --global user.email ""github-actions[bot]"@noreply.com"
           git config --global user.name "github-actions[bot]"
           git checkout -b release-${{ github.run_id }}
-          git commit --allow-empty -m "release-${{ github.run_id }}"
-          git pull origin main --rebase
-          git push --set-upstream origin release-${{ github.run_id }}
+          git push --set-upstream origin release-${{ github.run_id }} --force
+
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FILE_TO_COMMIT: test.txt
+          DESTINATION_BRANCH: release-${{ github.run_id }}
+        run: |
           export TODAY=$( date -u '+%Y-%m-%d' )
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
           export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
