@@ -13,7 +13,12 @@ jobs:
           gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
           
           echo "new command"
-          gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq '.user'
+          export PULL_REQUEST_CREATOR=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq '.user.login')
+          if [[ "$PULL_REQUEST_CREATOR" != "james-ogunsanwo"]]; then
+            echo "Invalid PR creator"
+            exit 1
+          fi
+          echo "success"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULL_NUMBER: ${{ github.event.number }}
