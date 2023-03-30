@@ -22,8 +22,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git checkout -b release-${{ github.run_id }}
           git commit --allow-empty -m "release-${{ github.run_id }}"
-          git pull origin main --rebase
-          git push --set-upstream origin release-${{ github.run_id }}
+          git push --set-upstream origin release-${{ github.run_id }} --force
           gh api --method PUT /repos/:owner/:repo/contents/$FILE_TO_COMMIT \
             --field message="$MESSAGE" \
             --field content="$CONTENT" \
