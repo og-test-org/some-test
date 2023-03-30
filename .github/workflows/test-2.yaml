@@ -10,8 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: setup python
-        uses: actions/setup-python@v4
+      - name: Build docker image
+        run: ./bin/build.sh
 
-      - name: execute py script # run main.py
-        run: python test.py
+      - name: Run example
+        run: |
+          docker run --rm \
+            --env INPUT_REPO_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            pygithub src/01_sign_commit_using_github_api.py
