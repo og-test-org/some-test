@@ -30,19 +30,6 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
-      - name: verify
-        run: |
-          git pull
-          git remote update
-          git rev-parse --abbrev-ref HEAD
-          git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }}
-          export COMMIT_LOG=$(git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }})
-          export SUB="failed to parse signature"
-          if [[ "$STR" == *"$SUB"* ]]; then
-            echo "Failed to validate signature"
-            exit 1
-          fi
-          echo "success"
 
   verify:
     needs: [create-branch]
