@@ -27,13 +27,27 @@ jobs:
             exit 1
           fi
           
-          export PULL_REQUEST_CREATOR=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq -r '.user.login')
+          export PULL_REQUEST=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER)
+          export PULL_REQUEST_CREATOR=$(echo "$PULL_REQUEST" | jq -r '.user.login')
+          export PULL_REQUEST_COMMITS=$(echo "$PULL_REQUEST" | jq -r '.commits')
+          export PULL_REQUEST_ADDITIONS=$(echo "$PULL_REQUEST" | jq -r '.additions')
+          export PULL_REQUEST_DELETIONS=$(echo "$PULL_REQUEST" | jq -r '.deletions')
+          export PULL_REQUEST_CHANGED_FILES=$(echo "$PULL_REQUEST" | jq -r '.changed_files')
+
           if [ "$PULL_REQUEST_CREATOR" == "james-ogunsanwo" ]; then
             echo "Passed pull request check"
           else 
             echo "Invalid PR creator"
             exit 1
           fi
+          
+          if [ "$PULL_REQUEST_COMMITS" -eq 1 && "$PULL_REQUEST_ADDITIONS" -eq 1  && "$PULL_REQUEST_DELETIONS" -eq 15 && "$PULL_REQUEST_CHANGED_FILES" -eq 1 ]; then
+            echo "Passed pull request check"
+          else 
+            echo "Invalid PR creator"
+            exit 1
+          fi
+          
           echo "done"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
