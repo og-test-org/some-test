@@ -14,12 +14,12 @@ jobs:
           
           echo "new command"
           export PULL_REQUEST_CREATOR=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq '.user.login')
-          if [ "$PULL_REQUEST_CREATOR" -eq "james-ogunsanwo" ]; then
-             echo "success"
+          if [ "$PULL_REQUEST_CREATOR" == "james-ogunsanwo" ]; then
+            echo match
           else 
             echo "Invalid PR creator"
             exit 1
-          fi 
+          fi
           echo "done"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
