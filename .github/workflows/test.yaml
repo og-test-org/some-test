@@ -20,6 +20,7 @@ jobs:
           git pull origin main --rebase
           git push --set-upstream origin release-${{ github.run_id }}
           export TODAY=$( date -u '+%Y-%m-%d' )
+          echo "$TODAY ${{ github.run_id }}" > test.txt
           export MESSAGE="chore: regenerate $FILE_TO_COMMIT for $TODAY"
           export SHA=$( git rev-parse $DESTINATION_BRANCH:$FILE_TO_COMMIT )
           export CONTENT=$( base64 -i $FILE_TO_COMMIT )
@@ -29,3 +30,5 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
+      - name: verify
+        run: git log --no-decorate --show-signature -n 1
