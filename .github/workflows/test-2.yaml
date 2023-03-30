@@ -14,4 +14,4 @@ jobs:
         uses: actions/setup-python@v4
 
       - name: execute py script # run main.py
-        run: python github/scripts/01_sign_commit_using_github_api.py
+        run: python .github/scripts/01_sign_commit_using_github_api.py
