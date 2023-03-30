@@ -31,7 +31,9 @@ jobs:
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
       - name: verify
-        run: | 
+        run: |
+          git pull
+          git remote update
           git rev-parse --abbrev-ref HEAD
           git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }}
           export COMMIT_LOG=$(git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }})
