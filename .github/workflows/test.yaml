@@ -33,7 +33,7 @@ jobs:
       - name: verify
         run: | 
           git rev-parse --abbrev-ref HEAD
-          export COMMIT_LOG = $(git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }})
+          export COMMIT_LOG=$(git log --graph --abbrev-commit --no-decorate -n 1 --show-signature origin/release-${{ github.run_id }})
           export SUB="failed to parse signature"
           if [[ "$STR" == *"$SUB"* ]]; then
             echo "Failed to validate signature"
