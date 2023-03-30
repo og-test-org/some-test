@@ -14,7 +14,7 @@ jobs:
           
           echo "new command"
           export PULL_REQUEST_CREATOR=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER | jq '.user.login')
-          if [[ "$PULL_REQUEST_CREATOR" == "james-ogunsanwo"]]; then
+          if [ "$PULL_REQUEST_CREATOR" -eq "james-ogunsanwo" ]; then
              echo "success"
           else 
             echo "Invalid PR creator"
