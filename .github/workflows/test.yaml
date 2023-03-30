@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Commit changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           FILE_TO_COMMIT: test.txt
           DESTINATION_BRANCH: release-${{ github.run_id }}
         run: |
@@ -41,7 +41,7 @@ jobs:
           git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
         env:
-          GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
 #  verify:
 #    needs: [create-branch]
