@@ -25,7 +25,7 @@ jobs:
       - name: Commit changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FILE_TO_COMMIT: test-2.txt
+          FILE_TO_COMMIT: test.txt
           DESTINATION_BRANCH: release-${{ github.run_id }}
         run: |
           export TODAY=$( date -u '+%Y-%m-%d' )
