@@ -28,9 +28,7 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
-      - name: Commit file
-        uses: swinton/commit@v2.x
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Verify
+        uses: vchain-us/verify-action@master
         with:
-          ref: refs/heads/release-${{ github.run_id }}
+          org: og-james
