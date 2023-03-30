@@ -35,7 +35,9 @@ jobs:
           git rev-parse --abbrev-ref HEAD
           git log --no-decorate --show-signature -n 1
           export RETURN_VALUE="$?"
+          echo "$RETURN_VALUE"
           if [ "$RETURN_VALUE" -ne 0 ]; then
             echo "PR checks are incomplete or have failed"
             exit 1
           fi
+          echo "success"
