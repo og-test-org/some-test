@@ -30,17 +30,17 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
-          git pull
+
+  create-pr:
+    needs: [create-branch]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
-#  verify:
-#    needs: [create-branch]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: verify
-#        run: gh api --method GET /repos/:owner/:repo/commits/release-${{ github.run_id }} | jq '.commit.verification.verified'
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #  verify:
 #    needs: [create-branch]
