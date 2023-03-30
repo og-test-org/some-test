@@ -37,14 +37,35 @@ jobs:
           if [ "$PULL_REQUEST_CREATOR" == "james-ogunsanwo" ]; then
             echo "Passed pull request check"
           else 
-            echo "Invalid PR creator"
+            echo "Failed pull request check"
             exit 1
           fi
           
-          if [ "$PULL_REQUEST_COMMITS" -eq 1 && "$PULL_REQUEST_ADDITIONS" -eq 1  && "$PULL_REQUEST_DELETIONS" -eq 15 && "$PULL_REQUEST_CHANGED_FILES" -eq 1 ]; then
-            echo "Passed pull request check"
+          if [ "$PULL_REQUEST_COMMITS" -eq 1 ]; then
+            echo "Passed commit size check"
           else 
-            echo "Invalid PR creator"
+            echo "Failed commit size check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_ADDITIONS" -eq 1 ]; then
+            echo "Passed pull request additions check"
+          else 
+            echo "Failed pull request additions check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_DELETIONS" -eq 15 ]; then
+            echo "Passed pull request deletions check"
+          else 
+            echo "Failed pull request deletions check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_CHANGED_FILES" -eq 1 ]; then
+            echo "Passed pull request changed filed check"
+          else 
+            echo "Failed pull request changed filed check "
             exit 1
           fi
           
