@@ -30,18 +30,24 @@ jobs:
             --field encoding="base64" \
             --field branch="$DESTINATION_BRANCH" \
             --field sha="$SHA"
-
-  create-pr:
-    needs: [create-branch]
-    runs-on: ubuntu-latest
-    steps:
       - uses: actions/checkout@v3
+        with:
+          path: root-pr
+          repository: og-test-org/some-test
+          ref: main
       - run: |
           git pull
           git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
         env:
           GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
+
+#  create-pr:
+#    needs: [create-branch]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+
 
 #  verify:
 #    needs: [create-branch]
