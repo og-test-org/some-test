@@ -36,7 +36,6 @@ jobs:
           repository: og-test-org/some-test
           ref: main
       - run: |
-          git pull
           git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
         env:
