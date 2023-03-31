@@ -3,7 +3,7 @@ name: Test workflow for example 01
 on:
   pull_request:
     branches:
-      - release-**
+      - master
 
 jobs:
   verify:
