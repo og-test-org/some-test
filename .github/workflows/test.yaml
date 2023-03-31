@@ -37,6 +37,7 @@ jobs:
           ref: main
       - run: |
           cd root-pr
+          git pull
           git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
         env:
