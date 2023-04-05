@@ -1,7 +1,7 @@
 name: called workflow
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   verify:
@@ -11,9 +11,9 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github.event) }}
         run: |
-          if [[ ${{ github.sender.login }} != 'james-ogunsanwo' ]]; then 
-          echo "${{ github.sender.login }}"
-            echo "not github-actions[bot]"
-            exit 1;
-          fi 
+          # if [[ ${{ github.sender.login }} != 'james-ogunsanwo' ]]; then 
+          # echo "${{ github.sender.login }}"
+          #   echo "not github-actions[bot]"
+          #   exit 1;
+          # fi 
           echo "$GITHUB_CONTEXT"

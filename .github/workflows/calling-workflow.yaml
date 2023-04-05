@@ -7,10 +7,11 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: convictional/trigger-workflow-and-wait@v1.6.1
-        with:
-          owner: og-test-org
-          repo: some-test
-          github_token: ${{ secrets.GITHUBTOKEN }}
-          workflow_file_name: called-workflow.yaml
+      - uses: og-test-org/some-test/.github/workflows/called-workflow.yml@main
+      # - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      #   with:
+      #     owner: og-test-org
+      #     repo: some-test
+      #     github_token: ${{ secrets.GITHUBTOKEN }}
+      #     workflow_file_name: called-workflow.yaml
         
