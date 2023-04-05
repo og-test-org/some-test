@@ -1,15 +1,1 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: prod-eng-example-logic
-  namespace: ssv
-  labels:
-    app.kubernetes.io/instance: prod-eng-example-logic
-  finalizers:
-    - resources-finalizer.argocd.argoproj.io
-spec:
-  project: chapter-backend-production-engineering
-  source:
-    repoURL: ghcr.io/eeveebank/prod-eng-example
-    chart: prod-eng-example-logic
-    targetRevision: 0.0.8
+2023-04-05 4620140512
