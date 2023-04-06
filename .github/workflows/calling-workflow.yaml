@@ -11,7 +11,7 @@ jobs:
         with:
           owner: og-test-org
           repo: some-test
-          client_payload: '{"token": "$GITHUBTOKEN"}'
+          client_payload: '{"token": "${{ secrets.GITHUBTOKEN }}"}'
           github_token: ${{ secrets.GITHUBTOKEN }}
           workflow_file_name: called-workflow.yaml
         
