@@ -1,7 +1,12 @@
 name: called workflow
 
 on:
-  workflow_call:
+  workflow_dispatch:
+    inputs:
+      token: 
+        description: "the auto approve GitHub token"
+        required: true
+        type: string
 
 jobs:
   verify:
@@ -17,3 +22,4 @@ jobs:
           #   exit 1;
           # fi 
           echo "$GITHUB_CONTEXT"
+          echo ${{ inputs.token }}

@@ -5,11 +5,13 @@ on:
 
 jobs:
   verify:
-    uses: og-test-org/some-test/.github/workflows/called-workflow.yaml@main
-      # - uses: convictional/trigger-workflow-and-wait@v1.6.1
-      #   with:
-      #     owner: og-test-org
-      #     repo: some-test
-      #     github_token: ${{ secrets.GITHUBTOKEN }}
-      #     workflow_file_name: called-workflow.yaml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: og-test-org
+          repo: some-test
+          client_payload: '{"token": "$GITHUBTOKEN"}'
+          github_token: ${{ secrets.GITHUBTOKEN }}
+          workflow_file_name: called-workflow.yaml
         
