@@ -41,7 +41,7 @@ jobs:
           git checkout release-${{ github.run_id }}
           gh pr create --title "Release ${{ github.run_id }}" --body "🚦 DeploymentAutoMerge: Enabled. " --fill
         env:
-          GH_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GH_TOKEN: ${{ github.token }}
 
 #  create-pr:
 #    needs: [create-branch]
