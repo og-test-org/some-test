@@ -24,25 +24,26 @@ jobs:
           # echo ::add-mask::$INP_SECRET
           # echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
 
-          INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
-          echo "$INP_SECRET" > key.txt
+          jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH > secret.txt
           while read -r line;
           do
             echo "::add-mask::${line}"
-          done < key.txt
+          done < secret.txt
           
-          # echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
-          # cat key.txt >> $GITHUB_OUTPUT
-          # echo "EOF" >> $GITHUB_OUTPUT
-
-          # echo "HERE"
+          echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
           echo SECRET_VALUE="$(cat key.txt)" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_OUTPUT
 
       - uses: actions/checkout@v3
       - run: |
               echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
               echo ${{ github.event.inputs.SECRET_NAME }} >> test.txt
               echo ${{ github.event.inputs.SECRET_VALUE }} >> test.txt
+              git config --global user.email "$TRIGGERING_USER@users.noreply.github.com"
+              git config --global user.name "$TRIGGERING_USER"
+              git add test.txt
+              git commit -m "adding stuff"
+              git push --set-upstream origin master
         env:
           TEAM_NAME: ${{ github.event.inputs.TEAM_NAME }}
           SECRET_NAME: ${{ github.event.inputs.SECRET_NAME }}
