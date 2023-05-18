@@ -33,7 +33,6 @@ jobs:
           echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
           cat secret.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          
       - uses: actions/checkout@v3
       - run: |
               echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
