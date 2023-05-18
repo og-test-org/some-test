@@ -28,3 +28,7 @@ jobs:
               echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
               echo ${{ github.event.inputs.SECRET_NAME }} >> test.txt
               echo ${{ github.event.inputs.SECRET_VALUE }} >> test.txt
+        env:
+          TEAM_NAME: ${{ github.event.inputs.TEAM_NAME }}
+          SECRET_NAME: ${{ github.event.inputs.SECRET_NAME }}
+          SECRET_VALUE: ${{ github.event.inputs.SECRET_VALUE }}
