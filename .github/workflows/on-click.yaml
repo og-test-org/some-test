@@ -1,0 +1,30 @@
+name: Click test
+
+on:
+  workflow_dispatch:
+    inputs:
+      TEAM_NAME:
+        description: "Your team name to use for the file containing secrets e.g. production-engineering"
+        required: true
+      SECRET_NAME:
+        description: "The name of the secret"
+        required: true
+      SECRET_VALUE:
+        description: "The value of the secret to be encrypted"
+        required: true
+
+jobs:
+  generate-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mask input
+        shell: bash
+        run: |
+          INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
+          echo ::add-mask::$INP_SECRET
+          echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
+      - uses: actions/checkout@v3
+      - run: |
+              echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
+              echo ${{ github.event.inputs.SECRET_NAME }} >> test.txt
+              echo ${{ github.event.inputs.SECRET_VALUE }} >> test.txt
