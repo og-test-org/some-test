@@ -24,7 +24,8 @@ jobs:
           # echo ::add-mask::$INP_SECRET
           # echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
 
-          jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH > secret.txt
+          INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
+          echo "$INP_SECRET" > secret.txt
           while read -r line;
           do
             echo "::add-mask::${line}"
@@ -43,7 +44,7 @@ jobs:
               git config --global user.name "$TRIGGERING_USER"
               git add test.txt
               git commit -m "adding stuff"
-              git push --set-upstream origin master
+              git push --set-upstream origin main
         env:
           TEAM_NAME: ${{ github.event.inputs.TEAM_NAME }}
           SECRET_NAME: ${{ github.event.inputs.SECRET_NAME }}
