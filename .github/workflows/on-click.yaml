@@ -31,7 +31,7 @@ jobs:
           done < secret.txt
           
           echo "SECRET_VALUE=<<EOF" >> $GITHUB_ENV
-          cat key.txt >> $GITHUB_ENV
+          cat secret.txt >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
           
       - uses: actions/checkout@v3
