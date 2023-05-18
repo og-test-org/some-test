@@ -24,16 +24,15 @@ jobs:
           # echo ::add-mask::$INP_SECRET
           # echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
 
-          INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
-          echo "$INP_SECRET" > secret.txt
+          jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH > secret.txt
           while read -r line;
           do
             echo "::add-mask::${line}"
           done < secret.txt
           
-          echo "SECRET_VALUE=<<EOF" >> $GITHUB_ENV
-          cat secret.txt >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
+          cat secret.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
           
       - uses: actions/checkout@v3
       - run: |
