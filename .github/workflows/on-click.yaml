@@ -31,11 +31,11 @@ jobs:
             echo "::add-mask::${line}"
           done < key.txt
           
-          echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
-          cat key.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          # echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
+          # cat key.txt >> $GITHUB_OUTPUT
+          # echo "EOF" >> $GITHUB_OUTPUT
 
-          echo "HERE"
+          # echo "HERE"
           echo SECRET_VALUE="$(cat key.txt)" >> $GITHUB_ENV
 
       - uses: actions/checkout@v3
