@@ -30,9 +30,8 @@ jobs:
           do
             echo "::add-mask::${line}"
           done < key.txt
-          echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
-          cat key.txt >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          echo SECRET_VALUE="$(cat key.txt)" >> $GITHUB_ENV
+
       - uses: actions/checkout@v3
       - run: |
               echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
