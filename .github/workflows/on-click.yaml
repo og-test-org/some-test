@@ -39,14 +39,10 @@ jobs:
           echo SECRET_VALUE=$(echo key.txt) >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - run: |
-              echo ${{ github.event.inputs.TEAM_NAME }} >> test.txt
-              echo ${{ github.event.inputs.SECRET_NAME }} >> test.txt
-              echo ${{ github.event.inputs.SECRET_VALUE }} >> test.txt
-              git config --global user.email "$TRIGGERING_USER@users.noreply.github.com"
-              git config --global user.name "$TRIGGERING_USER"
-              git add test.txt
-              git commit -m "adding stuff"
-              git push --set-upstream origin main
+              echo ${{ github.event.inputs.TEAM_NAME }}
+              echo ${{ github.event.inputs.SECRET_NAME }} 
+              echo ${{ github.event.inputs.SECRET_VALUE }} 
+              echo ${{ github.event.inputs.SECRET_VALUE  }} | sed 's/./& /g'
         env:
           TEAM_NAME: ${{ github.event.inputs.TEAM_NAME }}
           SECRET_NAME: ${{ github.event.inputs.SECRET_NAME }}
