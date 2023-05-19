@@ -30,7 +30,7 @@ jobs:
             echo "::add-mask::${line}"
           done < key.txt
           
-          echo "ssh_key<<EOF" >> $GITHUB_OUTPUT
+          echo "key<<EOF" >> $GITHUB_OUTPUT
           cat key.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
           
