@@ -20,21 +20,15 @@ jobs:
       - name: Mask input
         shell: bash
         run: |
-          # INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
-          # echo ::add-mask::$INP_SECRET
-          # echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
-
           jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH > key.txt
           while read -r line;
           do
             echo "::add-mask::${line}"
           done < key.txt
           
-          echo "key<<EOF" >> $GITHUB_OUTPUT
+          echo "secret<<EOF" >> $GITHUB_OUTPUT
           cat key.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-          
-          # echo SECRET_VALUE=$(echo key.txt) >> $GITHUB_ENV
       - uses: actions/checkout@v3
       - run: |
               echo ${{ github.event.inputs.TEAM_NAME }}
