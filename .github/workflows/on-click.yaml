@@ -25,10 +25,11 @@ jobs:
           # echo SECRET_VALUE="$INP_SECRET" >> $GITHUB_ENV
 
           INP_SECRET=$(jq -r '.inputs.SECRET_VALUE' $GITHUB_EVENT_PATH)
+          echo "$INP_SECRET" > secret.txt
           while read -r line;
           do
             echo "::add-mask::${line}"
-          done < "$INP_SECRET"
+          done < secret.txt
           
           echo "key<<EOF" >> $GITHUB_OUTPUT
           cat secret.txt >> $GITHUB_OUTPUT
