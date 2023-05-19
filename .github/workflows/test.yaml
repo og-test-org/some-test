@@ -1,7 +1,7 @@
 name: Test workflow for example 01
 
 on:
-  push:
+  pull_request:
 
 jobs:
   create-branch:
