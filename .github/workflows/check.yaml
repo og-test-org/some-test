@@ -1,0 +1,75 @@
+name: Test workflow for example 01
+
+on:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: verify
+        run: |
+          export COMMIT_DETAILS=$(gh api --method GET /repos/:owner/:repo/commits/${{ github.head_ref }})
+          export VERIFIED_COMMIT=$(echo "$COMMIT_DETAILS" | jq -r '.commit.verification.verified')
+          export COMMIT_AUTHOR_TYPE=$(gh api --method GET /repos/:owner/:repo/commits/${{ github.head_ref }} | jq -r '.author.type')
+          if [ $VERIFIED_COMMIT == true ]; then
+            echo "Passed verified check"
+          else 
+            echo "commit not verified"
+            exit 1
+          fi
+          
+          if [ $COMMIT_AUTHOR_TYPE == "Bot" ]; then
+            echo "Passed bot check"
+          else 
+            echo "commit not create by a bot"
+            exit 1
+          fi
+          
+          export PULL_REQUEST=$(gh api --method GET /repos/:owner/:repo/pulls/$PULL_NUMBER)
+          export PULL_REQUEST_CREATOR=$(echo "$PULL_REQUEST" | jq -r '.user.login')
+          export PULL_REQUEST_COMMITS=$(echo "$PULL_REQUEST" | jq -r '.commits')
+          export PULL_REQUEST_ADDITIONS=$(echo "$PULL_REQUEST" | jq -r '.additions')
+          export PULL_REQUEST_DELETIONS=$(echo "$PULL_REQUEST" | jq -r '.deletions')
+          export PULL_REQUEST_CHANGED_FILES=$(echo "$PULL_REQUEST" | jq -r '.changed_files')
+
+          if [ "$PULL_REQUEST_CREATOR" == "james-ogunsanwo" ]; then
+            echo "Passed pull request check"
+          else 
+            echo "Failed pull request check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_COMMITS" -eq 1 ]; then
+            echo "Passed commit size check"
+          else 
+            echo "Failed commit size check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_ADDITIONS" -eq 1 ]; then
+            echo "Passed pull request additions check"
+          else 
+            echo "Failed pull request additions check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_DELETIONS" -eq 15 ]; then
+            echo "Passed pull request deletions check"
+          else 
+            echo "Failed pull request deletions check"
+            exit 1
+          fi
+          
+          if [ "$PULL_REQUEST_CHANGED_FILES" -eq 1 ]; then
+            echo "Passed pull request changed filed check"
+          else 
+            echo "Failed pull request changed filed check "
+            exit 1
+          fi
+          
+          echo "done"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PULL_NUMBER: ${{ github.event.number }}
