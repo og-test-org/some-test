@@ -1,0 +1,15 @@
+name: Test deployment workflows
+
+on:
+  push:
+    
+jobs:
+ test-generic-app-deployment-in-sbx:
+    uses: og-test-org/some-test/.github/workflows/test.yaml
+    secrets: inherit
+    with:
+      appName: test-generic-app-deployment
+      imageTag: 0.0.1-testonly
+      environment: sbx
+      clusterName: sbx
+      namespace: ssv
