@@ -5,7 +5,7 @@ on:
     
 jobs:
  test-generic-app-deployment-in-sbx:
-    uses: og-test-org/some-test/.github/workflows/test.yaml
+    uses: og-test-org/some-test/.github/workflows/test.yaml@{ref}
     secrets: inherit
     with:
       appName: test-generic-app-deployment
