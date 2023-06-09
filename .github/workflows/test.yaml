@@ -11,4 +11,4 @@ jobs:
       - name: Commit changes
         shell: bash
         run: |
-         echo "master"
+         echo "develop"
