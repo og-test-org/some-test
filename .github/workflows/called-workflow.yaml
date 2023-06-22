@@ -10,6 +10,7 @@ on:
 
 jobs:
   verify:
+    environment: dummy
     runs-on: ubuntu-latest
     steps:
       - name: Dump GitHub context
