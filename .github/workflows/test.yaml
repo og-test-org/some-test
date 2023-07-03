@@ -11,5 +11,5 @@ jobs:
       - name: Commit changes
         shell: bash
         run: |
-           INPUT_DOCKERFILE=a value
+           INPUT_DOCKERFILE="a value"
            echo ${INPUT_DOCKERFILE}
