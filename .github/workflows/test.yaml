@@ -1,7 +1,7 @@
-name: Test workflow for example 01
+name: Test echo
 
 on:
-  pull_request:
+  push:
 
 jobs:
   create-branch:
@@ -11,4 +11,5 @@ jobs:
       - name: Commit changes
         shell: bash
         run: |
-         echo "master"
+           INPUT_DOCKERFILE=a value
+           echo ${INPUT_DOCKERFILE}
