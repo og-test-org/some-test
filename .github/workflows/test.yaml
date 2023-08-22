@@ -15,7 +15,7 @@ jobs:
           env_vars=($(echo $string | tr "," "\n"))
           for i in ${!env_vars[@]}
           do
-            echo "${env_vars[i]}" >> $GITHUB_ENV
+            export "${env_vars[i]}"
           done
       - name: Set env vars (SIT enabled)
         shell: bash
