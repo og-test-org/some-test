@@ -15,3 +15,8 @@ jobs:
           echo $REF
         env: 
           REF: ${{ github.ref}} 
+      - name: Invoke workflow with inputs
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: called workflow
+          inputs: '{ "something": "blah blah" }'

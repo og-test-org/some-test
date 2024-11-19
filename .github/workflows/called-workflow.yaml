@@ -3,7 +3,7 @@ name: called workflow
 on:
   workflow_dispatch:
     inputs:
-      token: 
+      something: 
         description: "the auto approve GitHub token"
         required: true
         type: string
@@ -13,14 +13,11 @@ jobs:
     environment: dummy
     runs-on: ubuntu-latest
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github.event) }}
+      - name: Set env vars (SIT enabled)
+        shell: bash
         run: |
-          # if [[ ${{ github.sender.login }} != 'james-ogunsanwo' ]]; then 
-          # echo "${{ github.sender.login }}"
-          #   echo "not github-actions[bot]"
-          #   exit 1;
-          # fi 
-          echo "$GITHUB_CONTEXT"
-          echo ${{ inputs.token }}
+          echo $REF
+          echo 
+        env: 
+          REF: ${{ github.ref}} 
+          TEST: ${{ inputs.something }}
