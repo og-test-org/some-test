@@ -1,0 +1,25 @@
+name: Deployment review demo
+
+on:
+    push:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    environment:
+      name: demo
+      url: https://github.com/eeveebank/prod-eng-example
+    steps:
+      - shell: bash
+        run: |
+          echo "some operation here"
+  pause-demo:
+    needs: [ demo ]
+    runs-on: ubuntu-latest
+    environment:
+      name: dummy
+      url: https://github.com/eeveebank/prod-eng-example
+    steps:
+      - shell: bash
+        run: |
+          echo "some operation here"
