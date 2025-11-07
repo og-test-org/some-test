@@ -1,0 +1,28 @@
+name: Deployment review demo
+
+on:
+  workflow_dispatch:
+  release:
+    types: [released]
+  push:
+
+jobs:
+  demo:
+    runs-on: ubututu-latest
+    environment:
+      name: demo
+      url: https://github.com/eeveebank/prod-eng-example
+    steps:
+      - shell: bash
+        run: |
+          echo "some operation here"
+  pause-demo:
+    needs: [ demo ]
+    runs-on: ubututu-latest
+    environment:
+      name: pause-demo
+      url: https://github.com/eeveebank/prod-eng-example
+    steps:
+      - shell: bash
+        run: |
+          echo "some operation here"
